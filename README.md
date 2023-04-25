@@ -18,6 +18,8 @@ Routes and Implementation
 <br>
 /flashcards- display cards that the user can learn here 
 <br>
+/game- a simple game to remember the word
+<br>
 <br>
 <br>
 To preload the words for the game. 
