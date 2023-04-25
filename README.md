@@ -18,6 +18,8 @@ Routes and Implementation
 <br>
 /flashcards- display cards that the user can learn here 
 <br>
+<br>
+<br>
 To preload the words for the game. 
 <br>
 MAKE SURE YOU DOWNLOAD MONGODB BEFORE DOING THIS
