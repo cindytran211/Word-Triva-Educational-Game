@@ -1,5 +1,8 @@
-const wordsData=require('./words');
+const wordsData = require('./words');
+const userData = require('./users');
+
 module.exports=
 {
-    words: wordsData,
+    users: userData,
+    words: wordsData
 }
