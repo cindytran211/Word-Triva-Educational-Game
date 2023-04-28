@@ -1,4 +1,5 @@
-const words=require('./data/words');
+const words = require('./data/words.js');
+const users = require('./data/users.js')
 const connection = require('./config/mongoConnection');
 
 const main=async()=>{

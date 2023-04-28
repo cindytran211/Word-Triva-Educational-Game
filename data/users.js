@@ -30,6 +30,12 @@ export const validPassword = (password) => {
     return true;
 };
 
+
+/*  CREATE USER
+    The createUser function takes in a username and password
+    Utilizes the two helper functions above to ensure username/password validity
+    Then, it uploads it to the MongoDB database */
+
 export const createUser = async (username, password) => {
 
     /* Step 1: Error check */
@@ -55,6 +61,7 @@ export const createUser = async (username, password) => {
 
     const insertInfo = await newUser.insertOne(newBand);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) { throw 'Error: Could not add user'; }
+
 
     return {created: true};
     
