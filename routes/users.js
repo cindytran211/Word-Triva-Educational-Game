@@ -5,7 +5,23 @@ const data = require("../data");
 const users = data.users;
 const events = data.events;
 
+router.get('/login', async(req,res) =>
+{
+    if(req.session.views!=undefined)
+    {
+        res.redirect("/");
+    }
+    else
+    {
+        res.render('app/login',{login: true});
+    }
+});
 
+router.post('/login', async(req,res) => 
+{
+});
+
+/*
 router
   .route('/') //home
   .get(async (req, res) => {
@@ -42,6 +58,7 @@ router
     //code here for GET
     try{
       //display html page with links and description
+
     }
     catch (e){
       res.status(400);
@@ -65,8 +82,7 @@ router
   .post(async (req, res) => {
 
   })
-
-
+*/
 
 
 module.exports = router;
