@@ -1,4 +1,4 @@
-import { routes } from './routes.js';
+import { router } from './routes.js';
 
 const constructorMethod = (app) => {
   app.use('/', routes)
