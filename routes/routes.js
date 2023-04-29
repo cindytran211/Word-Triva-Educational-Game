@@ -17,8 +17,73 @@ router.get('/login', async(req,res) =>
     }
 });
 
+router.get('/signup', async(req,res) =>
+{
+    if(req.session.views!=undefined)
+    {
+        res.redirect("/");
+    }
+    else
+    {
+        res.render('app/signup',{signup: true});
+    }
+});
+
 router.post('/login', async(req,res) => 
 {
+});
+
+router.get('/', async(req,res) => 
+{
+  if(req.session.views!=undefined)
+    {
+      res.render('app/home',{home: true, autenticated: true});
+    }
+    else
+    {
+      res.render('app/home',{home: true, autenticated: false});
+    }
+});
+
+router.get('/profile', async(req,res) =>
+{
+    if(req.session.views!=undefined)
+    {
+        res.redirect("/");
+    }
+    else
+    {
+        res.render('app/profile',{profile: true});
+    }
+});
+
+
+router.get('/flashcards', async(req,res) =>
+{
+    if(req.session.views!=undefined)
+    {
+        res.redirect("/");
+        //res.render('app/flashcards',{flashcards: true});
+    }
+    else
+    {
+        res.render('app/flashcards',{flashcards: true});
+        //res.redirect("/");
+    }
+});
+
+router.get('/game', async(req,res) =>
+{
+    if(req.session.views!=undefined)
+    {
+        res.redirect("/");
+        //res.render('app/flashcards',{flashcards: true});
+    }
+    else
+    {
+        res.render('app/game',{game: true});
+        //res.redirect("/");
+    }
 });
 
 /*

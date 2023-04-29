@@ -1,12 +1,12 @@
-const userRoutes = require('./users');
+const allRoutes = require('./routes');
 
 const constructorMethod = (app) => {
-  app.use('/', userRoutes);
-  app.use('/login', userRoutes);
-  //app.use('/signup', userRoutes);
-  //app.use('/profile', userRoutes);
-//   app.use('/flashcards', someRoute);
-//   app.use('/game', someRoute);
+  app.use('/', allRoutes);
+  app.use('/login', allRoutes);
+  app.use('/signup', allRoutes);
+  app.use('/profile', allRoutes);
+  app.use('/flashcards', allRoutes);
+  app.use('/game', allRoutes);
 
   app.use('*', (req, res) => {
     res.sendStatus(404);
