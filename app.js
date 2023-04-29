@@ -1,7 +1,11 @@
 const express= require('express');
+const bodyParser = require('body-parser');
 const app=express();
 const path=require('path');
 const session=require('express-session');
+ 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 const static=express.static(__dirname+'/public');
 app.use(session({
     name:'AuthCookie',

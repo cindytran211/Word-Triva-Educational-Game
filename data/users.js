@@ -58,14 +58,51 @@ let exportedMethod = {
         const newUser = {username: username, password: password};
 
         const user = await users();
+
+        const userList = await this.getAllUsers();
+
+        for (let x of userList) {
+            if (x.username.toLowerCase() === username.toLowerCase()) {
+                throw "Error: Username already exists in database!";
+            }
+        }
     
         const insertInfo = await user.insertOne(newUser);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) { throw 'Error: Could not add user'; }
     
     
         return {created: true};
-    }
+    },
 
+    async getAllUsers() {
+        const userData = await users();
+        let userList = await userData.find({}).toArray();
+        if (!userList) { throw "Error: Unable to find all users!"; }
+        
+        userList = userList.map((item) =>  { 
+        item._id = item._id.toString(); 
+        return item; });
+        return userList;
+    },
+
+    async getUser(id) {
+        if (!id) { throw "Error: id parameter doesn't exist!"; }
+        if (typeof id !== 'string' || id.trim().length === 0) { throw "Error: id parameter must be of string type and a non-empty string!"; }
+
+        // TRIM ID
+        id = id.trim();
+
+        if (!ObjectId.isValid(id)) { throw "Error: Invalid object ID!"; }
+        
+        const userData = await users();
+
+        let user = await userData.findOne({_id: new ObjectId(id)});
+
+        if (user === null) { throw "Error: User not found in database!"; }
+        user._id = user._id.toString();
+
+        return user;
+    }
 }
 
 module.exports = exportedMethod;

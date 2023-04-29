@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const data = require("../data");
+
 const users = data.users;
 const events = data.events;
 
@@ -29,19 +30,29 @@ router.get('/signup', async(req,res) =>
     }
 });
 
+
 router.post('/login', async(req,res) => 
 {
+  // console.log(req.body.floatingInput);
+  //   // if (!req.body.floatingInput || !req.body.floatingPassword) {
+  //   //   res.render('app/login');
+  //   // }
+
+  //   // else {
+  //   //   console.log("b")
+  //   //   res.render('app/home', {home: true})
+  //   // }
 });
 
 router.get('/', async(req,res) => 
 {
   if(req.session.views!=undefined)
     {
-      res.render('app/home',{home: true, autenticated: true});
+      res.render('app/home',{home: true, authenticated: true});
     }
     else
     {
-      res.render('app/home',{home: true, autenticated: false});
+      res.render('app/home',{home: true, authenticated: false});
     }
 });
 
