@@ -1,0 +1,37 @@
+html {
+    font-size: 14pt;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+body {
+    margin: auto;
+    max-width: 900px;
+    background-color: pink;
+}
+
+button {
+    font-size: 18pt;
+    transition: all 0.5s ease;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 4px 8px;
+    
+}
+
+button:hover {
+    background-color: lightblue;
+    color: black;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rebeccapurple;
+}
+
+h1 {
+    color: black;
+}
+
+dt {
+    font-weight: bold;
+}
