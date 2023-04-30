@@ -37,6 +37,29 @@ let exportedMethod={
             throw "Could not add word";
         }
         return {wordInserted: newWord}
+    },
+    async getAllWords(){
+        const wordsCollections=await words();
+        const getAllWords=await wordsCollections.find({}).toArray();
+        if(!getAllWords){
+            throw "Error: Cannot grab all the words"
+        }
+        const allWords=[];
+        for(let i=0;i<getAllWords.length;i+=2){
+            if(i===getAllWords.length-1){
+                const holder={
+                    word1: getAllWords[i],
+                }
+                allWords.push(holder);
+            }else{
+            const holder={
+                word1: getAllWords[i],
+                word2: getAllWords[i+1]
+                }
+                allWords.push(holder);
+            }
+        }
+        return allWords
     }
 }
 

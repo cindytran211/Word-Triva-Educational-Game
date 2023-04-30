@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const data = require("../data");
 const users = data.users;
-const events = data.events;
+const words= data.words;
 const validation=require('../validation');
 
 router.get('/login', async(req,res) =>
@@ -31,7 +31,6 @@ router.get('/signup', async(req,res) =>
 });
 
 router.post('/login', async(req,res) =>{
-  console.log("/login");
   try
   {
       req.body.username=validation.validName(req.body.username);
@@ -70,11 +69,11 @@ router.get('/profile', async(req,res) =>
 {
     if(req.session.views!=undefined)
     {
-        res.redirect("/");
+        res.render('app/profile',{profile: true});
     }
     else
     {
-        res.render('app/profile',{profile: true});
+      res.render('app/home',{home: true, autenticated: false});
     }
 });
 
@@ -83,13 +82,12 @@ router.get('/flashcards', async(req,res) =>
 {
     if(req.session.views!=undefined)
     {
-        res.redirect("/");
-        //res.render('app/flashcards',{flashcards: true});
+        let allWords=await words.getAllWords();
+        res.render('app/flashcards',{flashcards: true, words: allWords});
     }
     else
     {
-        res.render('app/flashcards',{flashcards: true});
-        //res.redirect("/");
+      res.render('app/home',{home: true, autenticated: false});
     }
 });
 

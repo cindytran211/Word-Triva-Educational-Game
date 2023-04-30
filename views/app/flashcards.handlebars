@@ -1,4 +1,5 @@
 <br/>
+{{#each words}}
 <div class="row">
   <div class="col-sm-6">
     <div class="flip-card">
@@ -6,7 +7,7 @@
             <div class="flip-card-front">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Word 1</h5>
+                        <h5 class="card-title">{{this.word1.word}}</h5>
                             <p class="card-text text-success">Flip Card Over To Find Out More!</p>
                     </div>
                 </div>
@@ -14,8 +15,8 @@
             <div class="flip-card-back">
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Word 1</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text">Part Of Speech: {{this.word1.partOfSpeech}}</p>
+                        <p class="card-text">Definition: {{this.word1.definition}}</p>
                     </div>
                 </div>
             </div>
@@ -28,7 +29,7 @@
             <div class="flip-card-front">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Word 2</h5>
+                        <h5 class="card-title">{{this.word2.word}}</h5>
                             <p class="card-text text-success">Flip Card Over To Find Out More!</p>
                     </div>
                 </div>
@@ -36,8 +37,8 @@
             <div class="flip-card-back">
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Word 2</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text">Part Of Speech: {{this.word2.partOfSpeech}}</p>
+                            <p class="card-text">Definition: {{this.word2.definition}}</p>
                     </div>
                 </div>
             </div>
@@ -50,100 +51,4 @@
 <br/>
 <br/>
 <br/>
-<div class="row">
-  <div class="col-sm-6">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 3</h5>
-                            <p class="card-text text-success">Flip Card Over To Find Out More!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 3</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 4</h5>
-                            <p class="card-text text-success">Flip Card Over To Find Out More!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 4</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="row">
-  <div class="col-sm-6">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 5</h5>
-                            <p class="card-text text-success">Flip Card Over To Find Out More!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 5</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 6</h5>
-                            <p class="card-text text-success">Flip Card Over To Find Out More!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Word 6</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
+{{/each}}
