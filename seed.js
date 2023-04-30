@@ -16,19 +16,18 @@ const main=async()=>{
     }
 
     try {
-        await users.createUser("TestUser123", "545IsCool")
+        await users.createUser("TestUser123","testuser@gmail.com" ,"545IsCool")
         console.log("This test case passes");
     } catch (e) {
         console.log(e);
     }
 
     try {
-        await users.createUser("Luke602", "02Luke02");
+        await users.createUser("Luke602", "luke@gmail.com","02Luke02");
         console.log("The second user is now in the database");
     } catch (e) {
         console.log(e);
     }
-
 
     const db = await connection.connectToDb();
     await connection.closeConnection();

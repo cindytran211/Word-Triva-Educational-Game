@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const data = require("../data");
 const users = data.users;
 const events = data.events;
+const validation=require('../validation');
 
 router.get('/login', async(req,res) =>
 {
@@ -29,9 +30,29 @@ router.get('/signup', async(req,res) =>
     }
 });
 
-router.post('/login', async(req,res) => 
-{
-});
+router.post('/login', async(req,res) =>{
+  console.log("/login");
+  try
+  {
+      req.body.username=validation.validName(req.body.username);
+      var password=req.body.password;
+      password=validation.validPassword(password);
+      const checkUser=await users.checkUser(req.body.username,password);
+      if(!checkUser.authenticated)
+      {
+          res.status(400).render('app/login',{login: true, error: "Error: Wrong Username or Password"});
+      }
+      else
+      {
+          req.session.views=1;
+          req.session.store=req.body.username;
+          res.render('app/home',{home: true, authenticated: true});
+      }
+  }catch(e)
+  {
+    res.status(400).render('app/login',{login: true, error: e});
+  }
+})
 
 router.get('/', async(req,res) => 
 {

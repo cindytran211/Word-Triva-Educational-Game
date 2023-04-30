@@ -1,35 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
-
-/*  USERNAME VALIDATION
-    Has at least 6 characters
-    Contains at least one letter and one number
-    Returns true/false on validity! */
-
-function validName(name) {
-    if (name.length < 6) { return false; }
-
-    /* Username must contain at least one letter and one number */
-    if (/[a-zA-Z]/g.test(name) === false || /\d/.test(name) === false) { return false; }
-
-    return true;
-};
-
-
-/*  PASSWORD VALIDATION
-    Has at least 8 characters
-    Contains at least one letter and one number
-    Returns true/false on validity */
-
-function validPassword(password) {
-    if (password.length < 8) { return false; }
-
-    /* Password must contain at least one letter and one number */
-    if (/[a-zA-Z]/g.test(password) === false || /\d/.test(password) === false) { return false; }
-
-    return true;
-}
-
+const validation=require('../validation');
+const bcrypt=require('bcrypt');
 let exportedMethod = {
 
     /*  CREATE USER
@@ -37,33 +9,64 @@ let exportedMethod = {
     Utilizes the two helper functions above to ensure username/password validity
     Then, it uploads it to the MongoDB database */
 
-    async createUser(username, password) {
-        if (!username || !password) {
-            throw "Error: Username and/or password missing";
+    async createUser(username, email, password) {
+        username=validation.validName(username);
+        password=validation.validPassword(password);
+        const newUserName=username.toLowerCase();
+        const usersCollection= await users();
+        const findUser=await usersCollection.find({username: newUserName}).toArray();
+        if(findUser.length==0)
+        {
+            const saltRounds=16;
+            const hash=await bcrypt.hash(password,saltRounds);
+            const holder=
+            {
+                username: newUserName,
+                email: email,
+                password: hash,
+            }
+            const newUser=await usersCollection.insertOne(holder);
+            if(!newUser.acknowledged || !newUser.insertedId)
+            {
+                throw "Error: Could not Add User"
+            }
+            const inserted=
+            {
+                userInserted: true
+            }
+            return inserted;
         }
-    
-        if (typeof username !== 'string' || typeof password !== 'string') {
-            throw "Error: Username and/or password must be a string";
+        else
+        {
+            throw "Error: There is Already A User With That UserName"
         }
-    
-        username = username.trim();
-        if (validName(username) == false) { throw "Error: Username is invalid!"; }
-        
-        password = password.trim();
-        if (validPassword(password) == false) { throw "Error: Password is invalid!"; }
-    
-    
-        /* Step 2: Insert user */
-    
-        const newUser = {username: username, password: password};
-
-        const user = await users();
-    
-        const insertInfo = await user.insertOne(newUser);
-        if (!insertInfo.acknowledged || !insertInfo.insertedId) { throw 'Error: Could not add user'; }
-    
-    
-        return {created: true};
+    },
+    async checkUser(username,password){
+        username=validation.validName(username)
+        password=validation.validPassword(password);
+        const newUserName=username.toLowerCase();
+        const usersCollection=await users();
+        const findUser=await usersCollection.find({username: newUserName}).toArray();
+        if(!findUser)
+        {
+            throw "Error: Either the username or password is invalid"
+        }
+        else
+        {
+            const comparePasswords=await bcrypt.compare(password,findUser[0].password);
+            if(comparePasswords)
+            {
+                const holder=
+                {
+                    authenticated: true
+                }
+                return holder;
+            }
+            else
+            {
+                throw "Error: Either the username or password is invalid"
+            }
+        }
     }
 
 }
