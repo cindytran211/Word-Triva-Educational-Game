@@ -26,5 +26,14 @@ module.exports={
         throw "Error: The Password is not in the correct format"
     }
     return password;
+},
+validateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return mail
+  }else{
+    throw "Error: The Email is in the incorrect format"
+  }
 }
 }

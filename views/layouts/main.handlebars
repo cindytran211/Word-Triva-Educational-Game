@@ -127,7 +127,7 @@
   </header>
     <main class="form-signin w-100 m-auto">
       {{#if error}}
-      <p>{{error}}</p>
+      <p style="color:red">{{error}}</p>
       {{/if}}
       {{{body}}}
     </main>
@@ -263,7 +263,10 @@
     </div>
   </header>
     <main class="form-signin w-100 m-auto">
-            {{{body}}}
+      {{#if error}}
+      <p style="color:red">{{error}}</p>
+      {{/if}}
+      {{{body}}}
     </main>
     <script src="/public/dist/js/bootstrap.bundle.min.js"></script>
   </body>

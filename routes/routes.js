@@ -10,7 +10,7 @@ router.get('/login', async(req,res) =>
 {
     if(req.session.views!=undefined)
     {
-        res.redirect("/");
+      res.render('app/home',{home: true, authenticated:true});
     }
     else
     {
@@ -22,12 +22,32 @@ router.get('/signup', async(req,res) =>
 {
     if(req.session.views!=undefined)
     {
-        res.redirect("/");
+      res.render('app/home',{home: true, authenticated:true});
     }
     else
     {
         res.render('app/signup',{signup: true});
     }
+});
+
+router.post('/signup', async(req,res) =>
+{
+  try
+  {
+      req.body.username=validation.validName(req.body.username);
+      var password=req.body.password;
+      password=validation.validPassword(password);
+      req.body.email=validation.validateEmail(req.body.email);
+      const newUser=await users.createUser(req.body.username,req.body.email,req.body.password);
+      if(newUser){
+        return res.render('app/login',{login:true});
+      }else{
+        return res.status(500).render('app/signup',{signup:true, error: "Error: Internal Server Error"});
+      }
+  }catch(e)
+  {
+    res.status(400).render('app/signup',{signup: true, error: e});
+  }
 });
 
 router.post('/login', async(req,res) =>{
