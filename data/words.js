@@ -1,6 +1,7 @@
 const mongoCollections=require("../config/mongoCollections");
 const words=mongoCollections.words;
 const axios=require('axios');
+const game = require('./game');
 
 let exportedMethod={
     async addWord(){
