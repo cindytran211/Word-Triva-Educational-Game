@@ -79,11 +79,11 @@ router.get('/', async(req,res) =>
 {
   if(req.session.views!=undefined)
     {
-      res.render('app/home',{home: true, autenticated: true});
+      res.render('app/home',{home: true, authenticated: true});
     }
     else
     {
-      res.render('app/home',{home: true, autenticated: false});
+      res.render('app/home',{home: true, authenticated: false});
     }
 });
 
@@ -106,7 +106,7 @@ router.get('/profile', async(req,res) =>
     }
     else
     {
-      res.render('app/home',{home: true, autenticated: false});
+      res.render('app/home',{home: true, authenticated: false});
     }
 });
 
@@ -120,7 +120,7 @@ router.get('/flashcards', async(req,res) =>
     }
     else
     {
-      res.render('app/home',{home: true, autenticated: false});
+      res.render('app/home',{home: true, authenticated: false});
     }
 });
 
@@ -133,7 +133,9 @@ router.get('/game', async(req,res) =>
       while(otherWords.length<3){
         let newWord=await words.getRandomWord();
         if(newWord.word !== gameWord.word){
-          otherWords.push(newWord)
+          if(!otherWords.includes(newWord)){
+            otherWords.push(newWord)
+          }
         }
       }
       otherWords.push(gameWord);
@@ -153,7 +155,7 @@ router.get('/game', async(req,res) =>
     }
     else
     {
-      res.render('app/home',{home: true, autenticated: false});
+      res.render('app/home',{home: true, authenticated: false});
     }
 });
 
@@ -166,68 +168,17 @@ router.post('/game', async(req,res) =>{
     
 });
 
-/*
-router
-  .route('/') //home
-  .get(async (req, res) => {
-    //code here for GET
-    try{
-      //display html page with links and description
-    }
-    catch (e){
-      res.status(400);
-    }
-  })
+router.get('/logout', async(req,res) =>{
+  if(req.session.views!=undefined)
+  {
+    req.session.views=undefined;
+    res.clearCookie('AuthCookie');
+    res.render('app/home',{home: true, authenticated: false});
+  }
+  else
+  {
+    res.render('app/home',{home: true, authenticated: false});
+  }
+});
 
-router
-  .route('/profile')
-  .get(async (req, res) => {
-    //code here for GET
-    //the profile page
-    try{
-      if (req.session.user){
-        const userData = await users.getUserData(req.session.user);
-        //render page with data
-      } else{
-        //either show error or load main '/' page
-      }
-    }
-    catch (e){
-      res.status(400);
-    }
-  })
-
-router
-  .route('/login') 
-  .get(async (req, res) => {
-    //code here for GET
-    try{
-      //display html page with links and description
-
-    }
-    catch (e){
-      res.status(400);
-    }
-  })
-  .post(async (req, res) => {
-
-  })
-
-router
-  .route('/signup') 
-  .get(async (req, res) => {
-    //code here for GET
-    try{
-      //display html page with links and description
-    }
-    catch (e){
-      res.status(400);
-    }
-  })
-  .post(async (req, res) => {
-
-  })
-*/
-
-
-module.exports = router;
+module.exports=router;
