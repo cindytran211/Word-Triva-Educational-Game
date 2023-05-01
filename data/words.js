@@ -60,6 +60,12 @@ let exportedMethod={
             }
         }
         return allWords
+    },
+    async getRandomWord(){
+        const wordsCollections=await words();
+        const allWords=await wordsCollections.find({}).toArray();
+        let randomWord=Math.floor(Math.random()*allWords.length);
+        return allWords[randomWord];
     }
 }
 

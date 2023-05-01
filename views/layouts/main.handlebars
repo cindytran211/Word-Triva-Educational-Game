@@ -420,7 +420,7 @@
     <script src="/public/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-{{/if}}
+{{else}}
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -555,6 +555,7 @@
     <script src="/public/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+{{/if}}
 {{/if}}
 {{#if flashcards}}
 <!doctype html>
@@ -848,6 +849,9 @@
     </div>
   </header>
     <main>
+      {{#if error}}
+      <p style="color:red">{{error}}</p>
+      {{/if}}
       {{{body}}}
     </main>
     <script src="/public/dist/js/bootstrap.bundle.min.js"></script>

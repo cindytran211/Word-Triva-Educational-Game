@@ -1,30 +1,35 @@
+{{#if result}}
+    <div class="card bg-light text-black mb-3 mx-auto">
+        <form method="GET" action="/game">
+            <img class="mb-4" src="/public/letterW.png" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 fw-normal">Multiple Choice Game</h1>
+                {{#if correct}}
+                <h2 style="color: green">{{result}}</h2>
+                {{else}}
+                <h2 style="color: red">{{result}}</h2>
+                {{/if}}
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Continue Playing</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; Made Year 2023</p>
+                <br/>
+        </form>
+    </div>
+{{else}}
 <div class="card bg-light text-black mb-3 mx-auto">
-<form>
+<form method="POST" id="game-form" action="/game">
     <img class="mb-4" src="/public/letterW.png" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Multiple Choice Game</h1>
-                <p>Put Question Here</p>
-                <input type="radio" name="radio">
-                <label class="options">Option 1
+        <p>Given This Defintion, What Is The Associated Word</p>
+        <p>{{words.gameWord.definition}}</p>
+            {{#each words.otherWords}}
+                <input type="radio" id="options" name="options" value={{this.word}}>
+                <label class="options">{{this.word}}
                 <span class="checkmark"></span>
-            </label>
+                </label>
+                <br/>
+                {{/each}}
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; Made Year 2023</p>
             <br/>
-            <input type="radio" name="radio">
-            <label class="options">Option 2
-                <span class="checkmark"></span>
-            </label>
-            <br/>
-            <input type="radio" name="radio">
-            <label class="options">Option 3
-                <span class="checkmark"></span>
-            </label>
-            <br/>
-            <input type="radio" name="radio">
-            <label class="options">Option 4
-                <span class="checkmark"></span>
-            </label>
-            <br/>
-            <br/>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; Made Year 2023</p>
   </form>
 </div>
+{{/if}}

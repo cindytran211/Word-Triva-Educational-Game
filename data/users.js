@@ -9,9 +9,10 @@ let exportedMethod = {
     Utilizes the two helper functions above to ensure username/password validity
     Then, it uploads it to the MongoDB database */
 
-    async createUser(username, email, password) {
+    async createUser(name,username, email, password) {
         username=validation.validName(username);
         password=validation.validPassword(password);
+        name=validation.validUserName(name);
         const newUserName=username.toLowerCase();
         const usersCollection= await users();
         const findUser=await usersCollection.find({username: newUserName}).toArray();
@@ -21,6 +22,7 @@ let exportedMethod = {
             const hash=await bcrypt.hash(password,saltRounds);
             const holder=
             {
+                name: name,
                 username: newUserName,
                 email: email,
                 password: hash,
@@ -66,6 +68,20 @@ let exportedMethod = {
             {
                 throw "Error: Either the username or password is invalid"
             }
+        }
+    },
+    async getUser(username){
+        username=validation.validName(username)
+        const newUserName=username.toLowerCase();
+        const usersCollection=await users();
+        const findUser=await usersCollection.findOne({username: newUserName});
+        if(!findUser)
+        {
+            throw "Error: Cannot find user"
+        }
+        else
+        {
+            return findUser;
         }
     }
 

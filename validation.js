@@ -35,5 +35,12 @@ validateEmail(mail)
   }else{
     throw "Error: The Email is in the incorrect format"
   }
+},
+validUserName(name){
+    if(name.length>1 && /^[A-Za-z]*$/.test(name)){
+        return name
+    }else{
+        throw "Error: Name is not in the correct format"
+    }
 }
 }
